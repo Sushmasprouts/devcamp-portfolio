@@ -11,9 +11,23 @@ class PortfoliosController < ApplicationController
  def create
    @portfolio_item= Portfolio.new(portfolio_item_params)
   if @portfolio_item.save
-   flash[:notice]= "succesfully created"
+   flash[:notice]= "your portfolio item is now live"
    redirect_to portfolios_path
    else
+    render 'new'
+  end
+ end
+ 
+ def edit
+  @portfolio_item= Portfolio.find(params[:id])
+ end
+ 
+ def update
+  @portfolio_item= Portfolio.find(params[:id])
+  if @portfolio_item.update(portfolio_item_params)
+    flash[:notice] = "succesfully updated"
+    redirect_to portfolios_path
+  else
     render 'new'
   end
  end
